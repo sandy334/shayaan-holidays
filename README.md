@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shayaan Holidays — Website
 
-## Getting Started
+Single-page marketing site for Shayaan Holidays (white Force Traveller, 12-seater). Built with Next.js 15 (App Router), TypeScript, Tailwind CSS v4, Motion and Lucide icons. All enquiries go to WhatsApp **+91 95384 01859**.
 
-First, run the development server:
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production build:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm run start      # serves the production build on port 3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editing content
 
-## Learn More
+Almost everything lives in **`src/config/site.ts`**:
 
-To learn more about Next.js, take a look at the following resources:
+| What | Where in `site.ts` |
+| --- | --- |
+| Phone / WhatsApp number, email, address, social links | `contact` |
+| Per-km rates (AC ₹22, non-AC ₹20) and driver bata (₹800/day) | `pricing` |
+| Vehicle description and features | `vehicle` |
+| Services, destinations, FAQ, booking steps | `services`, `destinations`, `faqs`, `bookingSteps` |
+| Navigation | `navItems` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Items marked `TODO(confirm)` are sensible defaults the business should verify. `email` and `address` stay hidden until set.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Images live in `public/images/` (photos) and `public/brand/` (logo + emblem). Photo sources and licences are recorded in `PHOTO-CREDITS.md`.
 
-## Deploy on Vercel
+## Deploy to GitHub Pages (current live site)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Live at **https://sandy334.github.io/shayaan-holidays/**, served from the `gh-pages` branch.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+After changing anything, commit and push to `main`, then publish:
+
+```bash
+npm run deploy:pages
+```
+
+This builds a static export under the `/shayaan-holidays` base path and force-pushes it to `gh-pages`. GitHub Pages updates within a minute or two. To move to a custom domain, point its DNS at GitHub Pages and run `CUSTOM_DOMAIN=www.yourdomain.in npm run deploy:pages`.
+
+## Deploy (Vercel alternative)
+
+1. Push this folder to a GitHub repository.
+2. Import it at vercel.com → New Project. The defaults work (framework: Next.js).
+3. Add the environment variable `NEXT_PUBLIC_SITE_URL` = your final domain, e.g. `https://www.shayaanholidays.in`. This drives canonical URLs, Open Graph tags, `robots.txt` and `sitemap.xml`.
+4. Deploy, then attach your custom domain in Vercel → Settings → Domains.
+
+Any Node host also works: `npm run build && npm run start`.
