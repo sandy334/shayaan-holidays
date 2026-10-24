@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://sandy334.github.io/shayaan-holidays/sitemap.xml
